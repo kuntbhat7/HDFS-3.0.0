@@ -17,7 +17,7 @@ services:
     networks:
       - $NETWORK_NAME
     ports:
-      - "9870:9870"
+      - "50070:50070"
 
   resourcemanager:
     image: dtr.paxatadev.com/hortonworks/resourcemanager:3.0.0-kerberos-8-hdp
