@@ -1,0 +1,1451 @@
+
+Profile: tests from container-test-script.rb (tests from container-test-script.rb)
+Version: (not specified)
+Target:  local://
+
+  Docker Container kdc.paxata.com
+[38;5;41m     ✔  should exist[0m
+[38;5;41m     ✔  should be running[0m
+[38;5;41m     ✔  image should eq "docker-kerberos"[0m
+[38;5;41m     ✔  ports should eq "88/tcp, 749/tcp"[0m
+  Docker Container namenode
+[38;5;41m     ✔  should exist[0m
+[38;5;41m     ✔  should be running[0m
+[38;5;41m     ✔  image should eq "dtr.paxatadev.com/hortonworks/namenode:3.0.0-kerberos-8-hdp"[0m
+[38;5;41m     ✔  ports should eq "8020/tcp, 8022/tcp, 50470/tcp, 0.0.0.0:50070->50070/tcp"[0m
+[38;5;41m     ✔  command should eq "start-hadoop-namenode"[0m
+  Docker Container datanode
+[38;5;41m     ✔  should exist[0m
+[38;5;41m     ✔  should be running[0m
+[38;5;41m     ✔  image should eq "dtr.paxatadev.com/hortonworks/datanode-nodemanager:3.0.0-kerberos-8-hdp"[0m
+[38;5;41m     ✔  ports should eq "8010/tcp, 50010/tcp, 50075/tcp, 50090/tcp, 50475/tcp"[0m
+[38;5;41m     ✔  command should eq "start-hadoop-datanode-nodemanager"[0m
+  Docker Container resourcemanager
+[38;5;41m     ✔  should exist[0m
+[38;5;41m     ✔  should be running[0m
+[38;5;41m     ✔  image should eq "dtr.paxatadev.com/hortonworks/resourcemanager:3.0.0-kerberos-8-hdp"[0m
+[38;5;41m     ✔  ports should eq "8030-8033/tcp, 8090/tcp, 19888-19889/tcp, 0.0.0.0:8088->8088/tcp"[0m
+[38;5;41m     ✔  command should eq "start-hadoop-resourcemanager"[0m
+  Docker Container pipeline
+[38;5;9m     ×  should exist
+     expected Docker Container pipeline to exist[0m
+[38;5;9m     ×  should be running
+     expected that `Docker Container pipeline` is running[0m
+[38;5;9m     ×  image should eq "dtr.paxatadev.com/hortonworks/pipeline:3.0.0-spark-2.2.0-kerberos-8-hdp"
+     
+     expected: "dtr.paxatadev.com/hortonworks/pipeline:3.0.0-spark-2.2.0-kerberos-8-hdp"
+          got: nil
+     
+     (compared using ==)
+[0m
+[38;5;9m     ×  ports should eq "4040/tcp, 8080-8081/tcp, 0.0.0.0:8090->8090/tcp"
+     
+     expected: "4040/tcp, 8080-8081/tcp, 0.0.0.0:8090->8090/tcp"
+          got: nil
+     
+     (compared using ==)
+[0m
+[38;5;9m     ×  command should eq "/root/bootstrap.sh"
+     
+     expected: "/root/bootstrap.sh"
+          got: nil
+     
+     (compared using ==)
+[0m
+  Docker Container postgres
+[38;5;41m     ✔  should exist[0m
+[38;5;41m     ✔  should be running[0m
+[38;5;41m     ✔  image should eq "postgres:9"[0m
+[38;5;41m     ✔  ports should eq "5432/tcp"[0m
+  Docker Container hive
+[38;5;41m     ✔  should exist[0m
+[38;5;41m     ✔  should be running[0m
+[38;5;41m     ✔  image should eq "dtr.paxatadev.com/hortonworks/hive:3.0.0-kerberos-8-hdp"[0m
+[38;5;41m     ✔  ports should eq "9083/tcp, 10000-10002/tcp"[0m
+[38;5;41m     ✔  command should eq "start-hive"[0m
+
+Test Summary: [38;5;41m28 successful[0m, [38;5;9m5 failures[0m, 0 skipped
+[2018-09-04T11:21:26+00:00] WARN: Cannot find a UUID for your node.
+
+Profile: tests from common-test-script.rb (tests from common-test-script.rb)
+Version: (not specified)
+Target:  docker://ebf566c542b59b918ff07bdc0904539521c80913735c2c87488cac1a7940548a
+
+  redhat
+[38;5;41m     ✔  should eq "redhat"[0m
+  Command: `java -version`
+[38;5;41m     ✔  stderr should match "1.8.0_181"[0m
+[38;5;41m     ✔  stdout should eq ""[0m
+[38;5;41m     ✔  exit_status should eq 0[0m
+  true
+[38;5;41m     ✔  should eq true[0m
+  Command: `gosu root bash -c 'whoami'`
+[38;5;41m     ✔  stdout should match "root"[0m
+[38;5;41m     ✔  stderr should eq ""[0m
+[38;5;41m     ✔  exit_status should eq 0[0m
+  System Package tar
+[38;5;41m     ✔  should be installed[0m
+  System Package wget
+[38;5;41m     ✔  should be installed[0m
+  System Package unzip
+[38;5;41m     ✔  should be installed[0m
+  System Package which
+[38;5;41m     ✔  should be installed[0m
+  System Package krb5-workstation
+[38;5;41m     ✔  should be installed[0m
+  System Package krb5-libs
+[38;5;41m     ✔  should be installed[0m
+  Command: `hadoop --version`
+[38;5;9m     ×  stdout should match "3.1.0.3.0.0.0-1634*"
+     expected "Usage: hadoop [OPTIONS] SUBCOMMAND [SUBCOMMAND OPTIONS]\n or    hadoop [OPTIONS] CLASSNAME [CLASSNAM...S, the Key Management Server\n\nSUBCOMMAND may print help when invoked w/o parameters or with -h.\n" to match "3.1.0.3.0.0.0-1634*"
+     Diff:
+     @@ -1,2 +1,55 @@
+     -3.1.0.3.0.0.0-1634*
+     +Usage: hadoop [OPTIONS] SUBCOMMAND [SUBCOMMAND OPTIONS]
+     + or    hadoop [OPTIONS] CLASSNAME [CLASSNAME OPTIONS]
+     +  where CLASSNAME is a user-provided Java class
+     +
+     +  OPTIONS is none or any of:
+     +
+     +buildpaths                       attempt to add class files from build tree
+     +--config dir                     Hadoop config directory
+     +--debug                          turn on shell script debug mode
+     +--help                           usage information
+     +hostnames list[,of,host,names]   hosts to use in slave mode
+     +hosts filename                   list of hosts to use in slave mode
+     +loglevel level                   set the log4j level for this command
+     +workers                          turn on worker mode
+     +
+     +  SUBCOMMAND is one of:
+     +
+     +
+     +    Admin Commands:
+     +
+     +daemonlog     get/set the log level for each daemon
+     +
+     +    Client Commands:
+     +
+     +archive       create a Hadoop archive
+     +checknative   check native Hadoop and compression libraries availability
+     +classpath     prints the class path needed to get the Hadoop jar and the
+     +              required libraries
+     +conftest      validate configuration XML files
+     +credential    interact with credential providers
+     +distch        distributed metadata changer
+     +distcp        copy file or directories recursively
+     +dtutil        operations related to delegation tokens
+     +envvars       display computed Hadoop environment variables
+     +fs            run a generic filesystem user client
+     +gridmix       submit a mix of synthetic job, modeling a profiled from
+     +              production load
+     +jar <jar>     run a jar file. NOTE: please use "yarn jar" to launch YARN
+     +              applications, not this command.
+     +jnipath       prints the java.library.path
+     +kdiag         Diagnose Kerberos Problems
+     +kerbname      show auth_to_local principal conversion
+     +key           manage keys via the KeyProvider
+     +rumenfolder   scale a rumen input trace
+     +rumentrace    convert logs into a rumen trace
+     +s3guard       manage metadata on S3
+     +trace         view and modify Hadoop tracing settings
+     +version       print the version
+     +
+     +    Daemon Commands:
+     +
+     +kms           run KMS, the Key Management Server
+     +
+     +SUBCOMMAND may print help when invoked w/o parameters or with -h.
+[0m
+[38;5;9m     ×  stderr should eq ""
+     
+     expected: ""
+          got: "ERROR: --version is not COMMAND nor fully qualified CLASSNAME.\ntput: No value for $TERM and no -T s...ified\ntput: No value for $TERM and no -T specified\ntput: No value for $TERM and no -T specified\n"
+     
+     (compared using ==)
+     
+     Diff:
+     @@ -1 +1,6 @@
+     +ERROR: --version is not COMMAND nor fully qualified CLASSNAME.
+     +tput: No value for $TERM and no -T specified
+     +tput: No value for $TERM and no -T specified
+     +tput: No value for $TERM and no -T specified
+     +tput: No value for $TERM and no -T specified
+[0m
+[38;5;9m     ×  exit_status should eq 0
+     
+     expected: 0
+          got: 1
+     
+     (compared using ==)
+[0m
+  Command: `yarn --version`
+[38;5;9m     ×  stdout should match "3.1.0.3.0.0.0-1634*"
+     expected "Usage: yarn [OPTIONS] SUBCOMMAND [SUBCOMMAND OPTIONS]\n or    yarn [OPTIONS] CLASSNAME [CLASSNAME OP...     run the timeline server\n\nSUBCOMMAND may print help when invoked w/o parameters or with -h.\n" to match "3.1.0.3.0.0.0-1634*"
+     Diff:
+     @@ -1,2 +1,56 @@
+     -3.1.0.3.0.0.0-1634*
+     +Usage: yarn [OPTIONS] SUBCOMMAND [SUBCOMMAND OPTIONS]
+     + or    yarn [OPTIONS] CLASSNAME [CLASSNAME OPTIONS]
+     +  where CLASSNAME is a user-provided Java class
+     +
+     +  OPTIONS is none or any of:
+     +
+     +--buildpaths                       attempt to add class files from build tree
+     +--config dir                       Hadoop config directory
+     +--daemon (start|status|stop)       operate on a daemon
+     +--debug                            turn on shell script debug mode
+     +--help                             usage information
+     +--hostnames list[,of,host,names]   hosts to use in worker mode
+     +--hosts filename                   list of hosts to use in worker mode
+     +--loglevel level                   set the log4j level for this command
+     +--workers                          turn on worker mode
+     +
+     +  SUBCOMMAND is one of:
+     +
+     +
+     +    Admin Commands:
+     +
+     +daemonlog            get/set the log level for each daemon
+     +node                 prints node report(s)
+     +rmadmin              admin tools
+     +scmadmin             SharedCacheManager admin tools
+     +
+     +    Client Commands:
+     +
+     +app|application      prints application(s) report/kill application/manage 
+     +                     long running application
+     +applicationattempt   prints applicationattempt(s) report
+     +classpath            prints the class path needed to get the hadoop jar and 
+     +                     the required libraries
+     +cluster              prints cluster information
+     +container            prints container(s) report
+     +envvars              display computed Hadoop environment variables
+     +jar <jar>            run a jar file
+     +logs                 dump container logs
+     +queue                prints queue information
+     +schedulerconf        Updates scheduler configuration
+     +timelinereader       run the timeline reader server
+     +top                  view cluster information
+     +version              print the version
+     +
+     +    Daemon Commands:
+     +
+     +nodemanager          run a nodemanager on each worker
+     +proxyserver          run the web app proxy server
+     +registrydns          run the registry DNS server
+     +resourcemanager      run the ResourceManager
+     +router               run the Router daemon
+     +sharedcachemanager   run the SharedCacheManager daemon
+     +timelineserver       run the timeline server
+     +
+     +SUBCOMMAND may print help when invoked w/o parameters or with -h.
+[0m
+[38;5;9m     ×  stderr should eq ""
+     
+     expected: ""
+          got: "WARNING: YARN_CONF_DIR has been replaced by HADOOP_CONF_DIR. Using value of YARN_CONF_DIR.\nWARNING:...ified\ntput: No value for $TERM and no -T specified\ntput: No value for $TERM and no -T specified\n"
+     
+     (compared using ==)
+     
+     Diff:
+     @@ -1 +1,10 @@
+     +WARNING: YARN_CONF_DIR has been replaced by HADOOP_CONF_DIR. Using value of YARN_CONF_DIR.
+     +WARNING: YARN_LOG_DIR has been replaced by HADOOP_LOG_DIR. Using value of YARN_LOG_DIR.
+     +WARNING: YARN_LOGFILE has been replaced by HADOOP_LOGFILE. Using value of YARN_LOGFILE.
+     +WARNING: YARN_OPTS has been replaced by HADOOP_OPTS. Using value of YARN_OPTS.
+     +ERROR: --version is not COMMAND nor fully qualified CLASSNAME.
+     +tput: No value for $TERM and no -T specified
+     +tput: No value for $TERM and no -T specified
+     +tput: No value for $TERM and no -T specified
+     +tput: No value for $TERM and no -T specified
+[0m
+[38;5;9m     ×  exit_status should eq 0
+     
+     expected: 0
+          got: 1
+     
+     (compared using ==)
+[0m
+  Environment variable HADOOP_HOME
+[38;5;41m     ✔  content should eq "/usr/local/hadoop"[0m
+  Environment variable HADOOP_CONF_DIR
+[38;5;9m     ×  content should eq "/etc/hadoop/conf"
+     
+     expected: "/etc/hadoop/conf"
+          got: "/usr/local/hadoop/conf"
+     
+     (compared using ==)
+[0m
+  Environment variable JAVA_HOME
+[38;5;41m     ✔  content should eq "/usr/java/latest"[0m
+
+Test Summary: [38;5;41m16 successful[0m, [38;5;9m7 failures[0m, 0 skipped
+[2018-09-04T11:21:29+00:00] WARN: Cannot find a UUID for your node.
+
+Profile: tests from namenode-test-script.rb (tests from namenode-test-script.rb)
+Version: (not specified)
+Target:  docker://ebf566c542b59b918ff07bdc0904539521c80913735c2c87488cac1a7940548a
+
+  File /usr/sbin/start-hadoop-namenode
+[38;5;41m     ✔  should exist[0m
+[38;5;41m     ✔  should be file[0m
+[38;5;41m     ✔  should not be directory[0m
+[38;5;41m     ✔  type should eq :file[0m
+  Command: `jps`
+[38;5;9m     ×  stdout should match "NameNode"
+     expected "3302 Jps\n" to match "NameNode"
+     Diff:
+     @@ -1,2 +1,2 @@
+     -NameNode
+     +3302 Jps
+[0m
+[38;5;41m     ✔  stderr should eq ""[0m
+[38;5;41m     ✔  exit_status should eq 0[0m
+  Command: `kinit -kt /etc/hadoop/conf/hdfs.keytab hdfs/$(hostname -f)`
+[38;5;9m     ×  stderr should eq ""
+     
+     expected: ""
+          got: "kinit: Key table file '/etc/hadoop/conf/hdfs.keytab' not found while getting initial credentials\n"
+     
+     (compared using ==)
+     
+     Diff:
+     @@ -1 +1,2 @@
+     +kinit: Key table file '/etc/hadoop/conf/hdfs.keytab' not found while getting initial credentials
+[0m
+[38;5;9m     ×  exit_status should eq 0
+     
+     expected: 0
+          got: 1
+     
+     (compared using ==)
+[0m
+
+Test Summary: [38;5;41m6 successful[0m, [38;5;9m3 failures[0m, 0 skipped
+[2018-09-04T11:21:36+00:00] WARN: Cannot find a UUID for your node.
+
+Profile: tests from hdfs-test-script.rb (tests from hdfs-test-script.rb)
+Version: (not specified)
+Target:  docker://ebf566c542b59b918ff07bdc0904539521c80913735c2c87488cac1a7940548a
+
+  Command: `klist`
+[38;5;9m     ×  stderr should eq ""
+     
+     expected: ""
+          got: "klist: No credentials cache found (filename: /tmp/krb5cc_0)\n"
+     
+     (compared using ==)
+     
+     Diff:
+     @@ -1 +1,2 @@
+     +klist: No credentials cache found (filename: /tmp/krb5cc_0)
+[0m
+[38;5;9m     ×  exit_status should eq 0
+     
+     expected: 0
+          got: 1
+     
+     (compared using ==)
+[0m
+  Command: `hdfs dfsadmin -report`
+[38;5;9m     ×  stderr should eq ""
+     
+     expected: ""
+          got: "report: Your endpoint configuration is wrong; For more details see:  http://wiki.apache.org/hadoop/UnsetHostnameOrPort\n"
+     
+     (compared using ==)
+     
+     Diff:
+     @@ -1 +1,2 @@
+     +report: Your endpoint configuration is wrong; For more details see:  http://wiki.apache.org/hadoop/UnsetHostnameOrPort
+[0m
+[38;5;9m     ×  exit_status should eq 0
+     
+     expected: 0
+          got: 255
+     
+     (compared using ==)
+[0m
+  Command: `hdfs dfs -ls /`
+[38;5;9m     ×  stdout should match "tmp*"
+     expected "" to match "tmp*"[0m
+[38;5;9m     ×  stdout should match "usr*"
+     expected "" to match "usr*"[0m
+[38;5;9m     ×  stderr should eq ""
+     
+     expected: ""
+          got: "ls: Your endpoint configuration is wrong; For more details see:  http://wiki.apache.org/hadoop/UnsetHostnameOrPort\n"
+     
+     (compared using ==)
+     
+     Diff:
+     @@ -1 +1,2 @@
+     +ls: Your endpoint configuration is wrong; For more details see:  http://wiki.apache.org/hadoop/UnsetHostnameOrPort
+[0m
+[38;5;9m     ×  exit_status should eq 0
+     
+     expected: 0
+          got: 1
+     
+     (compared using ==)
+[0m
+  Command: `kdestroy`
+[38;5;9m     ×  stderr should eq ""
+     
+     expected: ""
+          got: "kdestroy: No credentials cache found while destroying cache\n"
+     
+     (compared using ==)
+     
+     Diff:
+     @@ -1 +1,2 @@
+     +kdestroy: No credentials cache found while destroying cache
+[0m
+[38;5;41m     ✔  exit_status should eq 0[0m
+
+Test Summary: [38;5;41m1 successful[0m, [38;5;9m9 failures[0m, 0 skipped
+[2018-09-04T11:21:40+00:00] WARN: Cannot find a UUID for your node.
+
+Profile: tests from common-test-script.rb (tests from common-test-script.rb)
+Version: (not specified)
+Target:  docker://2cafaad9220f79b63790b86f1ea7c0d893bcb2cf418e4498faa7e803d9a159d6
+
+  redhat
+[38;5;41m     ✔  should eq "redhat"[0m
+  Command: `java -version`
+[38;5;41m     ✔  stderr should match "1.8.0_181"[0m
+[38;5;41m     ✔  stdout should eq ""[0m
+[38;5;41m     ✔  exit_status should eq 0[0m
+  true
+[38;5;41m     ✔  should eq true[0m
+  Command: `gosu root bash -c 'whoami'`
+[38;5;41m     ✔  stdout should match "root"[0m
+[38;5;41m     ✔  stderr should eq ""[0m
+[38;5;41m     ✔  exit_status should eq 0[0m
+  System Package tar
+[38;5;41m     ✔  should be installed[0m
+  System Package wget
+[38;5;41m     ✔  should be installed[0m
+  System Package unzip
+[38;5;41m     ✔  should be installed[0m
+  System Package which
+[38;5;41m     ✔  should be installed[0m
+  System Package krb5-workstation
+[38;5;41m     ✔  should be installed[0m
+  System Package krb5-libs
+[38;5;41m     ✔  should be installed[0m
+  Command: `hadoop --version`
+[38;5;9m     ×  stdout should match "3.1.0.3.0.0.0-1634*"
+     expected "Usage: hadoop [OPTIONS] SUBCOMMAND [SUBCOMMAND OPTIONS]\n or    hadoop [OPTIONS] CLASSNAME [CLASSNAM...S, the Key Management Server\n\nSUBCOMMAND may print help when invoked w/o parameters or with -h.\n" to match "3.1.0.3.0.0.0-1634*"
+     Diff:
+     @@ -1,2 +1,55 @@
+     -3.1.0.3.0.0.0-1634*
+     +Usage: hadoop [OPTIONS] SUBCOMMAND [SUBCOMMAND OPTIONS]
+     + or    hadoop [OPTIONS] CLASSNAME [CLASSNAME OPTIONS]
+     +  where CLASSNAME is a user-provided Java class
+     +
+     +  OPTIONS is none or any of:
+     +
+     +buildpaths                       attempt to add class files from build tree
+     +--config dir                     Hadoop config directory
+     +--debug                          turn on shell script debug mode
+     +--help                           usage information
+     +hostnames list[,of,host,names]   hosts to use in slave mode
+     +hosts filename                   list of hosts to use in slave mode
+     +loglevel level                   set the log4j level for this command
+     +workers                          turn on worker mode
+     +
+     +  SUBCOMMAND is one of:
+     +
+     +
+     +    Admin Commands:
+     +
+     +daemonlog     get/set the log level for each daemon
+     +
+     +    Client Commands:
+     +
+     +archive       create a Hadoop archive
+     +checknative   check native Hadoop and compression libraries availability
+     +classpath     prints the class path needed to get the Hadoop jar and the
+     +              required libraries
+     +conftest      validate configuration XML files
+     +credential    interact with credential providers
+     +distch        distributed metadata changer
+     +distcp        copy file or directories recursively
+     +dtutil        operations related to delegation tokens
+     +envvars       display computed Hadoop environment variables
+     +fs            run a generic filesystem user client
+     +gridmix       submit a mix of synthetic job, modeling a profiled from
+     +              production load
+     +jar <jar>     run a jar file. NOTE: please use "yarn jar" to launch YARN
+     +              applications, not this command.
+     +jnipath       prints the java.library.path
+     +kdiag         Diagnose Kerberos Problems
+     +kerbname      show auth_to_local principal conversion
+     +key           manage keys via the KeyProvider
+     +rumenfolder   scale a rumen input trace
+     +rumentrace    convert logs into a rumen trace
+     +s3guard       manage metadata on S3
+     +trace         view and modify Hadoop tracing settings
+     +version       print the version
+     +
+     +    Daemon Commands:
+     +
+     +kms           run KMS, the Key Management Server
+     +
+     +SUBCOMMAND may print help when invoked w/o parameters or with -h.
+[0m
+[38;5;9m     ×  stderr should eq ""
+     
+     expected: ""
+          got: "ERROR: --version is not COMMAND nor fully qualified CLASSNAME.\ntput: No value for $TERM and no -T s...ified\ntput: No value for $TERM and no -T specified\ntput: No value for $TERM and no -T specified\n"
+     
+     (compared using ==)
+     
+     Diff:
+     @@ -1 +1,6 @@
+     +ERROR: --version is not COMMAND nor fully qualified CLASSNAME.
+     +tput: No value for $TERM and no -T specified
+     +tput: No value for $TERM and no -T specified
+     +tput: No value for $TERM and no -T specified
+     +tput: No value for $TERM and no -T specified
+[0m
+[38;5;9m     ×  exit_status should eq 0
+     
+     expected: 0
+          got: 1
+     
+     (compared using ==)
+[0m
+  Command: `yarn --version`
+[38;5;9m     ×  stdout should match "3.1.0.3.0.0.0-1634*"
+     expected "Usage: yarn [OPTIONS] SUBCOMMAND [SUBCOMMAND OPTIONS]\n or    yarn [OPTIONS] CLASSNAME [CLASSNAME OP...     run the timeline server\n\nSUBCOMMAND may print help when invoked w/o parameters or with -h.\n" to match "3.1.0.3.0.0.0-1634*"
+     Diff:
+     @@ -1,2 +1,56 @@
+     -3.1.0.3.0.0.0-1634*
+     +Usage: yarn [OPTIONS] SUBCOMMAND [SUBCOMMAND OPTIONS]
+     + or    yarn [OPTIONS] CLASSNAME [CLASSNAME OPTIONS]
+     +  where CLASSNAME is a user-provided Java class
+     +
+     +  OPTIONS is none or any of:
+     +
+     +--buildpaths                       attempt to add class files from build tree
+     +--config dir                       Hadoop config directory
+     +--daemon (start|status|stop)       operate on a daemon
+     +--debug                            turn on shell script debug mode
+     +--help                             usage information
+     +--hostnames list[,of,host,names]   hosts to use in worker mode
+     +--hosts filename                   list of hosts to use in worker mode
+     +--loglevel level                   set the log4j level for this command
+     +--workers                          turn on worker mode
+     +
+     +  SUBCOMMAND is one of:
+     +
+     +
+     +    Admin Commands:
+     +
+     +daemonlog            get/set the log level for each daemon
+     +node                 prints node report(s)
+     +rmadmin              admin tools
+     +scmadmin             SharedCacheManager admin tools
+     +
+     +    Client Commands:
+     +
+     +app|application      prints application(s) report/kill application/manage 
+     +                     long running application
+     +applicationattempt   prints applicationattempt(s) report
+     +classpath            prints the class path needed to get the hadoop jar and 
+     +                     the required libraries
+     +cluster              prints cluster information
+     +container            prints container(s) report
+     +envvars              display computed Hadoop environment variables
+     +jar <jar>            run a jar file
+     +logs                 dump container logs
+     +queue                prints queue information
+     +schedulerconf        Updates scheduler configuration
+     +timelinereader       run the timeline reader server
+     +top                  view cluster information
+     +version              print the version
+     +
+     +    Daemon Commands:
+     +
+     +nodemanager          run a nodemanager on each worker
+     +proxyserver          run the web app proxy server
+     +registrydns          run the registry DNS server
+     +resourcemanager      run the ResourceManager
+     +router               run the Router daemon
+     +sharedcachemanager   run the SharedCacheManager daemon
+     +timelineserver       run the timeline server
+     +
+     +SUBCOMMAND may print help when invoked w/o parameters or with -h.
+[0m
+[38;5;9m     ×  stderr should eq ""
+     
+     expected: ""
+          got: "WARNING: YARN_CONF_DIR has been replaced by HADOOP_CONF_DIR. Using value of YARN_CONF_DIR.\nWARNING:...ified\ntput: No value for $TERM and no -T specified\ntput: No value for $TERM and no -T specified\n"
+     
+     (compared using ==)
+     
+     Diff:
+     @@ -1 +1,10 @@
+     +WARNING: YARN_CONF_DIR has been replaced by HADOOP_CONF_DIR. Using value of YARN_CONF_DIR.
+     +WARNING: YARN_LOG_DIR has been replaced by HADOOP_LOG_DIR. Using value of YARN_LOG_DIR.
+     +WARNING: YARN_LOGFILE has been replaced by HADOOP_LOGFILE. Using value of YARN_LOGFILE.
+     +WARNING: YARN_OPTS has been replaced by HADOOP_OPTS. Using value of YARN_OPTS.
+     +ERROR: --version is not COMMAND nor fully qualified CLASSNAME.
+     +tput: No value for $TERM and no -T specified
+     +tput: No value for $TERM and no -T specified
+     +tput: No value for $TERM and no -T specified
+     +tput: No value for $TERM and no -T specified
+[0m
+[38;5;9m     ×  exit_status should eq 0
+     
+     expected: 0
+          got: 1
+     
+     (compared using ==)
+[0m
+  Environment variable HADOOP_HOME
+[38;5;41m     ✔  content should eq "/usr/local/hadoop"[0m
+  Environment variable HADOOP_CONF_DIR
+[38;5;9m     ×  content should eq "/etc/hadoop/conf"
+     
+     expected: "/etc/hadoop/conf"
+          got: "/usr/local/hadoop/conf"
+     
+     (compared using ==)
+[0m
+  Environment variable JAVA_HOME
+[38;5;41m     ✔  content should eq "/usr/java/latest"[0m
+
+Test Summary: [38;5;41m16 successful[0m, [38;5;9m7 failures[0m, 0 skipped
+[2018-09-04T11:21:43+00:00] WARN: Cannot find a UUID for your node.
+
+Profile: tests from datanode-test-script.rb (tests from datanode-test-script.rb)
+Version: (not specified)
+Target:  docker://2cafaad9220f79b63790b86f1ea7c0d893bcb2cf418e4498faa7e803d9a159d6
+
+  File /usr/sbin/start-hadoop-datanode-nodemanager
+[38;5;41m     ✔  should exist[0m
+[38;5;41m     ✔  should be file[0m
+[38;5;41m     ✔  should not be directory[0m
+[38;5;41m     ✔  type should eq :file[0m
+  Environment variable JSVC_HOME
+[38;5;41m     ✔  content should eq "/usr/bin"[0m
+  Environment variable HADOOP_SECURE_DN_USER
+[38;5;41m     ✔  content should eq "root"[0m
+  Environment variable PIPELINE_CACHE
+[38;5;41m     ✔  content should eq "/usr/local/paxata/pipeline/cache"[0m
+  Environment variable SPARK_TMP
+[38;5;41m     ✔  content should eq "/usr/local/paxata/spark/tmp"[0m
+  Command: `ps -eaf`
+[38;5;41m     ✔  stdout should match "datanode"[0m
+[38;5;41m     ✔  stderr should eq ""[0m
+[38;5;41m     ✔  exit_status should eq 0[0m
+  Command: `jps`
+[38;5;9m     ×  stdout should match "NodeManager"
+     expected "14712 Jps\n" to match "NodeManager"
+     Diff:
+     @@ -1,2 +1,2 @@
+     -NodeManager
+     +14712 Jps
+[0m
+[38;5;41m     ✔  stderr should eq ""[0m
+[38;5;41m     ✔  exit_status should eq 0[0m
+  Command: `kinit -kt /etc/hadoop/conf/hdfs.keytab hdfs/$(hostname -f)`
+[38;5;9m     ×  stderr should eq ""
+     
+     expected: ""
+          got: "kinit: Key table file '/etc/hadoop/conf/hdfs.keytab' not found while getting initial credentials\n"
+     
+     (compared using ==)
+     
+     Diff:
+     @@ -1 +1,2 @@
+     +kinit: Key table file '/etc/hadoop/conf/hdfs.keytab' not found while getting initial credentials
+[0m
+[38;5;9m     ×  exit_status should eq 0
+     
+     expected: 0
+          got: 1
+     
+     (compared using ==)
+[0m
+
+Test Summary: [38;5;41m13 successful[0m, [38;5;9m3 failures[0m, 0 skipped
+[2018-09-04T11:21:48+00:00] WARN: Cannot find a UUID for your node.
+
+Profile: tests from hdfs-test-script.rb (tests from hdfs-test-script.rb)
+Version: (not specified)
+Target:  docker://2cafaad9220f79b63790b86f1ea7c0d893bcb2cf418e4498faa7e803d9a159d6
+
+  Command: `klist`
+[38;5;9m     ×  stderr should eq ""
+     
+     expected: ""
+          got: "klist: No credentials cache found (filename: /tmp/krb5cc_0)\n"
+     
+     (compared using ==)
+     
+     Diff:
+     @@ -1 +1,2 @@
+     +klist: No credentials cache found (filename: /tmp/krb5cc_0)
+[0m
+[38;5;9m     ×  exit_status should eq 0
+     
+     expected: 0
+          got: 1
+     
+     (compared using ==)
+[0m
+  Command: `hdfs dfsadmin -report`
+[38;5;9m     ×  stderr should eq ""
+     
+     expected: ""
+          got: "WARNING: HADOOP_SECURE_DN_USER has been replaced by HDFS_DATANODE_SECURE_USER. Using value of HADOOP_SECURE_DN_USER.\nreport: Incomplete HDFS URI, no host: hdfs://namenode_hostname:8020\n"
+     
+     (compared using ==)
+     
+     Diff:
+     @@ -1 +1,3 @@
+     +WARNING: HADOOP_SECURE_DN_USER has been replaced by HDFS_DATANODE_SECURE_USER. Using value of HADOOP_SECURE_DN_USER.
+     +report: Incomplete HDFS URI, no host: hdfs://namenode_hostname:8020
+[0m
+[38;5;9m     ×  exit_status should eq 0
+     
+     expected: 0
+          got: 255
+     
+     (compared using ==)
+[0m
+  Command: `hdfs dfs -ls /`
+[38;5;9m     ×  stdout should match "tmp*"
+     expected "" to match "tmp*"[0m
+[38;5;9m     ×  stdout should match "usr*"
+     expected "" to match "usr*"[0m
+[38;5;9m     ×  stderr should eq ""
+     
+     expected: ""
+          got: "WARNING: HADOOP_SECURE_DN_USER has been replaced by HDFS_DATANODE_SECURE_USER. Using value of HADOOP_SECURE_DN_USER.\nls: Incomplete HDFS URI, no host: hdfs://namenode_hostname:8020\n"
+     
+     (compared using ==)
+     
+     Diff:
+     @@ -1 +1,3 @@
+     +WARNING: HADOOP_SECURE_DN_USER has been replaced by HDFS_DATANODE_SECURE_USER. Using value of HADOOP_SECURE_DN_USER.
+     +ls: Incomplete HDFS URI, no host: hdfs://namenode_hostname:8020
+[0m
+[38;5;9m     ×  exit_status should eq 0
+     
+     expected: 0
+          got: 1
+     
+     (compared using ==)
+[0m
+  Command: `kdestroy`
+[38;5;9m     ×  stderr should eq ""
+     
+     expected: ""
+          got: "kdestroy: No credentials cache found while destroying cache\n"
+     
+     (compared using ==)
+     
+     Diff:
+     @@ -1 +1,2 @@
+     +kdestroy: No credentials cache found while destroying cache
+[0m
+[38;5;41m     ✔  exit_status should eq 0[0m
+
+Test Summary: [38;5;41m1 successful[0m, [38;5;9m9 failures[0m, 0 skipped
+[2018-09-04T11:21:52+00:00] WARN: Cannot find a UUID for your node.
+
+Profile: tests from common-test-script.rb (tests from common-test-script.rb)
+Version: (not specified)
+Target:  docker://db27b0f659835a45ce40b7a5c13c23186aea3a8b30a98667aa2a3c1a4825d9bf
+
+  redhat
+[38;5;41m     ✔  should eq "redhat"[0m
+  Command: `java -version`
+[38;5;41m     ✔  stderr should match "1.8.0_181"[0m
+[38;5;41m     ✔  stdout should eq ""[0m
+[38;5;41m     ✔  exit_status should eq 0[0m
+  true
+[38;5;41m     ✔  should eq true[0m
+  Command: `gosu root bash -c 'whoami'`
+[38;5;41m     ✔  stdout should match "root"[0m
+[38;5;41m     ✔  stderr should eq ""[0m
+[38;5;41m     ✔  exit_status should eq 0[0m
+  System Package tar
+[38;5;41m     ✔  should be installed[0m
+  System Package wget
+[38;5;41m     ✔  should be installed[0m
+  System Package unzip
+[38;5;41m     ✔  should be installed[0m
+  System Package which
+[38;5;41m     ✔  should be installed[0m
+  System Package krb5-workstation
+[38;5;41m     ✔  should be installed[0m
+  System Package krb5-libs
+[38;5;41m     ✔  should be installed[0m
+  Command: `hadoop --version`
+[38;5;9m     ×  stdout should match "3.1.0.3.0.0.0-1634*"
+     expected "Usage: hadoop [OPTIONS] SUBCOMMAND [SUBCOMMAND OPTIONS]\n or    hadoop [OPTIONS] CLASSNAME [CLASSNAM...S, the Key Management Server\n\nSUBCOMMAND may print help when invoked w/o parameters or with -h.\n" to match "3.1.0.3.0.0.0-1634*"
+     Diff:
+     @@ -1,2 +1,55 @@
+     -3.1.0.3.0.0.0-1634*
+     +Usage: hadoop [OPTIONS] SUBCOMMAND [SUBCOMMAND OPTIONS]
+     + or    hadoop [OPTIONS] CLASSNAME [CLASSNAME OPTIONS]
+     +  where CLASSNAME is a user-provided Java class
+     +
+     +  OPTIONS is none or any of:
+     +
+     +buildpaths                       attempt to add class files from build tree
+     +--config dir                     Hadoop config directory
+     +--debug                          turn on shell script debug mode
+     +--help                           usage information
+     +hostnames list[,of,host,names]   hosts to use in slave mode
+     +hosts filename                   list of hosts to use in slave mode
+     +loglevel level                   set the log4j level for this command
+     +workers                          turn on worker mode
+     +
+     +  SUBCOMMAND is one of:
+     +
+     +
+     +    Admin Commands:
+     +
+     +daemonlog     get/set the log level for each daemon
+     +
+     +    Client Commands:
+     +
+     +archive       create a Hadoop archive
+     +checknative   check native Hadoop and compression libraries availability
+     +classpath     prints the class path needed to get the Hadoop jar and the
+     +              required libraries
+     +conftest      validate configuration XML files
+     +credential    interact with credential providers
+     +distch        distributed metadata changer
+     +distcp        copy file or directories recursively
+     +dtutil        operations related to delegation tokens
+     +envvars       display computed Hadoop environment variables
+     +fs            run a generic filesystem user client
+     +gridmix       submit a mix of synthetic job, modeling a profiled from
+     +              production load
+     +jar <jar>     run a jar file. NOTE: please use "yarn jar" to launch YARN
+     +              applications, not this command.
+     +jnipath       prints the java.library.path
+     +kdiag         Diagnose Kerberos Problems
+     +kerbname      show auth_to_local principal conversion
+     +key           manage keys via the KeyProvider
+     +rumenfolder   scale a rumen input trace
+     +rumentrace    convert logs into a rumen trace
+     +s3guard       manage metadata on S3
+     +trace         view and modify Hadoop tracing settings
+     +version       print the version
+     +
+     +    Daemon Commands:
+     +
+     +kms           run KMS, the Key Management Server
+     +
+     +SUBCOMMAND may print help when invoked w/o parameters or with -h.
+[0m
+[38;5;9m     ×  stderr should eq ""
+     
+     expected: ""
+          got: "ERROR: --version is not COMMAND nor fully qualified CLASSNAME.\ntput: No value for $TERM and no -T s...ified\ntput: No value for $TERM and no -T specified\ntput: No value for $TERM and no -T specified\n"
+     
+     (compared using ==)
+     
+     Diff:
+     @@ -1 +1,6 @@
+     +ERROR: --version is not COMMAND nor fully qualified CLASSNAME.
+     +tput: No value for $TERM and no -T specified
+     +tput: No value for $TERM and no -T specified
+     +tput: No value for $TERM and no -T specified
+     +tput: No value for $TERM and no -T specified
+[0m
+[38;5;9m     ×  exit_status should eq 0
+     
+     expected: 0
+          got: 1
+     
+     (compared using ==)
+[0m
+  Command: `yarn --version`
+[38;5;9m     ×  stdout should match "3.1.0.3.0.0.0-1634*"
+     expected "Usage: yarn [OPTIONS] SUBCOMMAND [SUBCOMMAND OPTIONS]\n or    yarn [OPTIONS] CLASSNAME [CLASSNAME OP...     run the timeline server\n\nSUBCOMMAND may print help when invoked w/o parameters or with -h.\n" to match "3.1.0.3.0.0.0-1634*"
+     Diff:
+     @@ -1,2 +1,56 @@
+     -3.1.0.3.0.0.0-1634*
+     +Usage: yarn [OPTIONS] SUBCOMMAND [SUBCOMMAND OPTIONS]
+     + or    yarn [OPTIONS] CLASSNAME [CLASSNAME OPTIONS]
+     +  where CLASSNAME is a user-provided Java class
+     +
+     +  OPTIONS is none or any of:
+     +
+     +--buildpaths                       attempt to add class files from build tree
+     +--config dir                       Hadoop config directory
+     +--daemon (start|status|stop)       operate on a daemon
+     +--debug                            turn on shell script debug mode
+     +--help                             usage information
+     +--hostnames list[,of,host,names]   hosts to use in worker mode
+     +--hosts filename                   list of hosts to use in worker mode
+     +--loglevel level                   set the log4j level for this command
+     +--workers                          turn on worker mode
+     +
+     +  SUBCOMMAND is one of:
+     +
+     +
+     +    Admin Commands:
+     +
+     +daemonlog            get/set the log level for each daemon
+     +node                 prints node report(s)
+     +rmadmin              admin tools
+     +scmadmin             SharedCacheManager admin tools
+     +
+     +    Client Commands:
+     +
+     +app|application      prints application(s) report/kill application/manage 
+     +                     long running application
+     +applicationattempt   prints applicationattempt(s) report
+     +classpath            prints the class path needed to get the hadoop jar and 
+     +                     the required libraries
+     +cluster              prints cluster information
+     +container            prints container(s) report
+     +envvars              display computed Hadoop environment variables
+     +jar <jar>            run a jar file
+     +logs                 dump container logs
+     +queue                prints queue information
+     +schedulerconf        Updates scheduler configuration
+     +timelinereader       run the timeline reader server
+     +top                  view cluster information
+     +version              print the version
+     +
+     +    Daemon Commands:
+     +
+     +nodemanager          run a nodemanager on each worker
+     +proxyserver          run the web app proxy server
+     +registrydns          run the registry DNS server
+     +resourcemanager      run the ResourceManager
+     +router               run the Router daemon
+     +sharedcachemanager   run the SharedCacheManager daemon
+     +timelineserver       run the timeline server
+     +
+     +SUBCOMMAND may print help when invoked w/o parameters or with -h.
+[0m
+[38;5;9m     ×  stderr should eq ""
+     
+     expected: ""
+          got: "WARNING: YARN_CONF_DIR has been replaced by HADOOP_CONF_DIR. Using value of YARN_CONF_DIR.\nWARNING:...ified\ntput: No value for $TERM and no -T specified\ntput: No value for $TERM and no -T specified\n"
+     
+     (compared using ==)
+     
+     Diff:
+     @@ -1 +1,10 @@
+     +WARNING: YARN_CONF_DIR has been replaced by HADOOP_CONF_DIR. Using value of YARN_CONF_DIR.
+     +WARNING: YARN_LOG_DIR has been replaced by HADOOP_LOG_DIR. Using value of YARN_LOG_DIR.
+     +WARNING: YARN_LOGFILE has been replaced by HADOOP_LOGFILE. Using value of YARN_LOGFILE.
+     +WARNING: YARN_OPTS has been replaced by HADOOP_OPTS. Using value of YARN_OPTS.
+     +ERROR: --version is not COMMAND nor fully qualified CLASSNAME.
+     +tput: No value for $TERM and no -T specified
+     +tput: No value for $TERM and no -T specified
+     +tput: No value for $TERM and no -T specified
+     +tput: No value for $TERM and no -T specified
+[0m
+[38;5;9m     ×  exit_status should eq 0
+     
+     expected: 0
+          got: 1
+     
+     (compared using ==)
+[0m
+  Environment variable HADOOP_HOME
+[38;5;41m     ✔  content should eq "/usr/local/hadoop"[0m
+  Environment variable HADOOP_CONF_DIR
+[38;5;9m     ×  content should eq "/etc/hadoop/conf"
+     
+     expected: "/etc/hadoop/conf"
+          got: "/usr/local/hadoop/conf"
+     
+     (compared using ==)
+[0m
+  Environment variable JAVA_HOME
+[38;5;41m     ✔  content should eq "/usr/java/latest"[0m
+
+Test Summary: [38;5;41m16 successful[0m, [38;5;9m7 failures[0m, 0 skipped
+[2018-09-04T11:21:55+00:00] WARN: Cannot find a UUID for your node.
+
+Profile: tests from resourcemanager-test-script.rb (tests from resourcemanager-test-script.rb)
+Version: (not specified)
+Target:  docker://db27b0f659835a45ce40b7a5c13c23186aea3a8b30a98667aa2a3c1a4825d9bf
+
+  File /usr/sbin/start-hadoop-resourcemanager
+[38;5;41m     ✔  should exist[0m
+[38;5;41m     ✔  should be file[0m
+[38;5;41m     ✔  should not be directory[0m
+[38;5;41m     ✔  type should eq :file[0m
+  Command: `jps`
+[38;5;9m     ×  stdout should match "ResourceManager"
+     expected "14647 Jps\n" to match "ResourceManager"
+     Diff:
+     @@ -1,2 +1,2 @@
+     -ResourceManager
+     +14647 Jps
+[0m
+[38;5;9m     ×  stdout should match "JobHistoryServer"
+     expected "14647 Jps\n" to match "JobHistoryServer"
+     Diff:
+     @@ -1,2 +1,2 @@
+     -JobHistoryServer
+     +14647 Jps
+[0m
+[38;5;41m     ✔  stderr should eq ""[0m
+[38;5;41m     ✔  exit_status should eq 0[0m
+  Command: `kinit -kt /etc/hadoop/conf/yarn.keytab yarn/$(hostname -f)`
+[38;5;9m     ×  stderr should eq ""
+     
+     expected: ""
+          got: "kinit: Key table file '/etc/hadoop/conf/yarn.keytab' not found while getting initial credentials\n"
+     
+     (compared using ==)
+     
+     Diff:
+     @@ -1 +1,2 @@
+     +kinit: Key table file '/etc/hadoop/conf/yarn.keytab' not found while getting initial credentials
+[0m
+[38;5;9m     ×  exit_status should eq 0
+     
+     expected: 0
+          got: 1
+     
+     (compared using ==)
+[0m
+
+Test Summary: [38;5;41m6 successful[0m, [38;5;9m4 failures[0m, 0 skipped
+[2018-09-04T11:22:00+00:00] WARN: Cannot find a UUID for your node.
+
+Profile: tests from hdfs-test-script.rb (tests from hdfs-test-script.rb)
+Version: (not specified)
+Target:  docker://db27b0f659835a45ce40b7a5c13c23186aea3a8b30a98667aa2a3c1a4825d9bf
+
+  Command: `klist`
+[38;5;9m     ×  stderr should eq ""
+     
+     expected: ""
+          got: "klist: No credentials cache found (filename: /tmp/krb5cc_0)\n"
+     
+     (compared using ==)
+     
+     Diff:
+     @@ -1 +1,2 @@
+     +klist: No credentials cache found (filename: /tmp/krb5cc_0)
+[0m
+[38;5;9m     ×  exit_status should eq 0
+     
+     expected: 0
+          got: 1
+     
+     (compared using ==)
+[0m
+  Command: `hdfs dfsadmin -report`
+[38;5;9m     ×  stderr should eq ""
+     
+     expected: ""
+          got: "report: Incomplete HDFS URI, no host: hdfs://namenode_hostname:8020\n"
+     
+     (compared using ==)
+     
+     Diff:
+     @@ -1 +1,2 @@
+     +report: Incomplete HDFS URI, no host: hdfs://namenode_hostname:8020
+[0m
+[38;5;9m     ×  exit_status should eq 0
+     
+     expected: 0
+          got: 255
+     
+     (compared using ==)
+[0m
+  Command: `hdfs dfs -ls /`
+[38;5;9m     ×  stdout should match "tmp*"
+     expected "" to match "tmp*"[0m
+[38;5;9m     ×  stdout should match "usr*"
+     expected "" to match "usr*"[0m
+[38;5;9m     ×  stderr should eq ""
+     
+     expected: ""
+          got: "ls: Incomplete HDFS URI, no host: hdfs://namenode_hostname:8020\n"
+     
+     (compared using ==)
+     
+     Diff:
+     @@ -1 +1,2 @@
+     +ls: Incomplete HDFS URI, no host: hdfs://namenode_hostname:8020
+[0m
+[38;5;9m     ×  exit_status should eq 0
+     
+     expected: 0
+          got: 1
+     
+     (compared using ==)
+[0m
+  Command: `kdestroy`
+[38;5;9m     ×  stderr should eq ""
+     
+     expected: ""
+          got: "kdestroy: No credentials cache found while destroying cache\n"
+     
+     (compared using ==)
+     
+     Diff:
+     @@ -1 +1,2 @@
+     +kdestroy: No credentials cache found while destroying cache
+[0m
+[38;5;41m     ✔  exit_status should eq 0[0m
+
+Test Summary: [38;5;41m1 successful[0m, [38;5;9m9 failures[0m, 0 skipped
+[2018-09-04T11:22:08+00:00] WARN: Cannot find a UUID for your node.
+
+Profile: tests from common-test-script.rb (tests from common-test-script.rb)
+Version: (not specified)
+Target:  docker://aa36ac47e8e894f058e1c6491c8f2260f11702a1e735071191f35e37dfc400e2
+
+  redhat
+[38;5;41m     ✔  should eq "redhat"[0m
+  Command: `java -version`
+[38;5;41m     ✔  stderr should match "1.8.0_181"[0m
+[38;5;41m     ✔  stdout should eq ""[0m
+[38;5;41m     ✔  exit_status should eq 0[0m
+  true
+[38;5;41m     ✔  should eq true[0m
+  Command: `gosu root bash -c 'whoami'`
+[38;5;41m     ✔  stdout should match "root"[0m
+[38;5;41m     ✔  stderr should eq ""[0m
+[38;5;41m     ✔  exit_status should eq 0[0m
+  System Package tar
+[38;5;41m     ✔  should be installed[0m
+  System Package wget
+[38;5;41m     ✔  should be installed[0m
+  System Package unzip
+[38;5;41m     ✔  should be installed[0m
+  System Package which
+[38;5;41m     ✔  should be installed[0m
+  System Package krb5-workstation
+[38;5;41m     ✔  should be installed[0m
+  System Package krb5-libs
+[38;5;41m     ✔  should be installed[0m
+  Command: `hadoop --version`
+[38;5;9m     ×  stdout should match "3.1.0.3.0.0.0-1634*"
+     expected "Usage: hadoop [OPTIONS] SUBCOMMAND [SUBCOMMAND OPTIONS]\n or    hadoop [OPTIONS] CLASSNAME [CLASSNAM...S, the Key Management Server\n\nSUBCOMMAND may print help when invoked w/o parameters or with -h.\n" to match "3.1.0.3.0.0.0-1634*"
+     Diff:
+     @@ -1,2 +1,55 @@
+     -3.1.0.3.0.0.0-1634*
+     +Usage: hadoop [OPTIONS] SUBCOMMAND [SUBCOMMAND OPTIONS]
+     + or    hadoop [OPTIONS] CLASSNAME [CLASSNAME OPTIONS]
+     +  where CLASSNAME is a user-provided Java class
+     +
+     +  OPTIONS is none or any of:
+     +
+     +buildpaths                       attempt to add class files from build tree
+     +--config dir                     Hadoop config directory
+     +--debug                          turn on shell script debug mode
+     +--help                           usage information
+     +hostnames list[,of,host,names]   hosts to use in slave mode
+     +hosts filename                   list of hosts to use in slave mode
+     +loglevel level                   set the log4j level for this command
+     +workers                          turn on worker mode
+     +
+     +  SUBCOMMAND is one of:
+     +
+     +
+     +    Admin Commands:
+     +
+     +daemonlog     get/set the log level for each daemon
+     +
+     +    Client Commands:
+     +
+     +archive       create a Hadoop archive
+     +checknative   check native Hadoop and compression libraries availability
+     +classpath     prints the class path needed to get the Hadoop jar and the
+     +              required libraries
+     +conftest      validate configuration XML files
+     +credential    interact with credential providers
+     +distch        distributed metadata changer
+     +distcp        copy file or directories recursively
+     +dtutil        operations related to delegation tokens
+     +envvars       display computed Hadoop environment variables
+     +fs            run a generic filesystem user client
+     +gridmix       submit a mix of synthetic job, modeling a profiled from
+     +              production load
+     +jar <jar>     run a jar file. NOTE: please use "yarn jar" to launch YARN
+     +              applications, not this command.
+     +jnipath       prints the java.library.path
+     +kdiag         Diagnose Kerberos Problems
+     +kerbname      show auth_to_local principal conversion
+     +key           manage keys via the KeyProvider
+     +rumenfolder   scale a rumen input trace
+     +rumentrace    convert logs into a rumen trace
+     +s3guard       manage metadata on S3
+     +trace         view and modify Hadoop tracing settings
+     +version       print the version
+     +
+     +    Daemon Commands:
+     +
+     +kms           run KMS, the Key Management Server
+     +
+     +SUBCOMMAND may print help when invoked w/o parameters or with -h.
+[0m
+[38;5;9m     ×  stderr should eq ""
+     
+     expected: ""
+          got: "ERROR: --version is not COMMAND nor fully qualified CLASSNAME.\ntput: No value for $TERM and no -T s...ified\ntput: No value for $TERM and no -T specified\ntput: No value for $TERM and no -T specified\n"
+     
+     (compared using ==)
+     
+     Diff:
+     @@ -1 +1,6 @@
+     +ERROR: --version is not COMMAND nor fully qualified CLASSNAME.
+     +tput: No value for $TERM and no -T specified
+     +tput: No value for $TERM and no -T specified
+     +tput: No value for $TERM and no -T specified
+     +tput: No value for $TERM and no -T specified
+[0m
+[38;5;9m     ×  exit_status should eq 0
+     
+     expected: 0
+          got: 1
+     
+     (compared using ==)
+[0m
+  Command: `yarn --version`
+[38;5;9m     ×  stdout should match "3.1.0.3.0.0.0-1634*"
+     expected "Usage: yarn [OPTIONS] SUBCOMMAND [SUBCOMMAND OPTIONS]\n or    yarn [OPTIONS] CLASSNAME [CLASSNAME OP...     run the timeline server\n\nSUBCOMMAND may print help when invoked w/o parameters or with -h.\n" to match "3.1.0.3.0.0.0-1634*"
+     Diff:
+     @@ -1,2 +1,56 @@
+     -3.1.0.3.0.0.0-1634*
+     +Usage: yarn [OPTIONS] SUBCOMMAND [SUBCOMMAND OPTIONS]
+     + or    yarn [OPTIONS] CLASSNAME [CLASSNAME OPTIONS]
+     +  where CLASSNAME is a user-provided Java class
+     +
+     +  OPTIONS is none or any of:
+     +
+     +--buildpaths                       attempt to add class files from build tree
+     +--config dir                       Hadoop config directory
+     +--daemon (start|status|stop)       operate on a daemon
+     +--debug                            turn on shell script debug mode
+     +--help                             usage information
+     +--hostnames list[,of,host,names]   hosts to use in worker mode
+     +--hosts filename                   list of hosts to use in worker mode
+     +--loglevel level                   set the log4j level for this command
+     +--workers                          turn on worker mode
+     +
+     +  SUBCOMMAND is one of:
+     +
+     +
+     +    Admin Commands:
+     +
+     +daemonlog            get/set the log level for each daemon
+     +node                 prints node report(s)
+     +rmadmin              admin tools
+     +scmadmin             SharedCacheManager admin tools
+     +
+     +    Client Commands:
+     +
+     +app|application      prints application(s) report/kill application/manage 
+     +                     long running application
+     +applicationattempt   prints applicationattempt(s) report
+     +classpath            prints the class path needed to get the hadoop jar and 
+     +                     the required libraries
+     +cluster              prints cluster information
+     +container            prints container(s) report
+     +envvars              display computed Hadoop environment variables
+     +jar <jar>            run a jar file
+     +logs                 dump container logs
+     +queue                prints queue information
+     +schedulerconf        Updates scheduler configuration
+     +timelinereader       run the timeline reader server
+     +top                  view cluster information
+     +version              print the version
+     +
+     +    Daemon Commands:
+     +
+     +nodemanager          run a nodemanager on each worker
+     +proxyserver          run the web app proxy server
+     +registrydns          run the registry DNS server
+     +resourcemanager      run the ResourceManager
+     +router               run the Router daemon
+     +sharedcachemanager   run the SharedCacheManager daemon
+     +timelineserver       run the timeline server
+     +
+     +SUBCOMMAND may print help when invoked w/o parameters or with -h.
+[0m
+[38;5;9m     ×  stderr should eq ""
+     
+     expected: ""
+          got: "WARNING: YARN_CONF_DIR has been replaced by HADOOP_CONF_DIR. Using value of YARN_CONF_DIR.\nWARNING:...ified\ntput: No value for $TERM and no -T specified\ntput: No value for $TERM and no -T specified\n"
+     
+     (compared using ==)
+     
+     Diff:
+     @@ -1 +1,10 @@
+     +WARNING: YARN_CONF_DIR has been replaced by HADOOP_CONF_DIR. Using value of YARN_CONF_DIR.
+     +WARNING: YARN_LOG_DIR has been replaced by HADOOP_LOG_DIR. Using value of YARN_LOG_DIR.
+     +WARNING: YARN_LOGFILE has been replaced by HADOOP_LOGFILE. Using value of YARN_LOGFILE.
+     +WARNING: YARN_OPTS has been replaced by HADOOP_OPTS. Using value of YARN_OPTS.
+     +ERROR: --version is not COMMAND nor fully qualified CLASSNAME.
+     +tput: No value for $TERM and no -T specified
+     +tput: No value for $TERM and no -T specified
+     +tput: No value for $TERM and no -T specified
+     +tput: No value for $TERM and no -T specified
+[0m
+[38;5;9m     ×  exit_status should eq 0
+     
+     expected: 0
+          got: 1
+     
+     (compared using ==)
+[0m
+  Environment variable HADOOP_HOME
+[38;5;41m     ✔  content should eq "/usr/local/hadoop"[0m
+  Environment variable HADOOP_CONF_DIR
+[38;5;9m     ×  content should eq "/etc/hadoop/conf"
+     
+     expected: "/etc/hadoop/conf"
+          got: "/usr/local/hadoop/conf"
+     
+     (compared using ==)
+[0m
+  Environment variable JAVA_HOME
+[38;5;41m     ✔  content should eq "/usr/java/latest"[0m
+
+Test Summary: [38;5;41m16 successful[0m, [38;5;9m7 failures[0m, 0 skipped
+[2018-09-04T11:22:17+00:00] WARN: Cannot find a UUID for your node.
+
+Profile: tests from hive-test-script.rb (tests from hive-test-script.rb)
+Version: (not specified)
+Target:  docker://aa36ac47e8e894f058e1c6491c8f2260f11702a1e735071191f35e37dfc400e2
+
+  File /usr/sbin/start-hive
+[38;5;41m     ✔  should exist[0m
+[38;5;41m     ✔  should be file[0m
+[38;5;41m     ✔  should not be directory[0m
+[38;5;41m     ✔  type should eq :file[0m
+  File /usr/local/hive/conf/hive-site.xml
+[38;5;41m     ✔  should exist[0m
+[38;5;41m     ✔  should be file[0m
+[38;5;41m     ✔  should not be directory[0m
+[38;5;41m     ✔  type should eq :file[0m
+  File /usr/local/hive/lib/postgresql-9.4.1212.jre7.jar
+[38;5;41m     ✔  should exist[0m
+[38;5;41m     ✔  should be file[0m
+[38;5;41m     ✔  should not be directory[0m
+[38;5;41m     ✔  type should eq :file[0m
+  Environment variable HIVE_HOME
+[38;5;41m     ✔  content should eq "/usr/local/hive"[0m
+  Environment variable HIVE_CONF_DIR
+[38;5;41m     ✔  content should eq "/usr/local/hive/conf"[0m
+  Command: `ps -eaf`
+[38;5;9m     ×  stdout should match "HiveMetaStore"
+     expected "UID        PID  PPID  C STIME TTY          TIME CMD\nroot         1     0  0 09:43 ?        00:00:00...   24  0 11:22 ?        00:00:00 sleep 1\nroot     15477     0  0 11:22 ?        00:00:00 ps -eaf\n" to match "HiveMetaStore"
+     Diff:
+     @@ -1,2 +1,7 @@
+     -HiveMetaStore
+     +UID        PID  PPID  C STIME TTY          TIME CMD
+     +root         1     0  0 09:43 ?        00:00:00 /bin/sh /usr/sbin/start-hive
+     +root        24     1  0 09:43 ?        00:00:02 bash /usr/sbin/wait-for-it.sh namenode.hadoop-network:8020 -t 0
+     +root      4429     0  0 10:10 pts/0    00:00:00 /bin/bash
+     +root     15446    24  0 11:22 ?        00:00:00 sleep 1
+     +root     15477     0  0 11:22 ?        00:00:00 ps -eaf
+[0m
+[38;5;9m     ×  stdout should match "HiveServer2"
+     expected "UID        PID  PPID  C STIME TTY          TIME CMD\nroot         1     0  0 09:43 ?        00:00:00...   24  0 11:22 ?        00:00:00 sleep 1\nroot     15477     0  0 11:22 ?        00:00:00 ps -eaf\n" to match "HiveServer2"
+     Diff:
+     @@ -1,2 +1,7 @@
+     -HiveServer2
+     +UID        PID  PPID  C STIME TTY          TIME CMD
+     +root         1     0  0 09:43 ?        00:00:00 /bin/sh /usr/sbin/start-hive
+     +root        24     1  0 09:43 ?        00:00:02 bash /usr/sbin/wait-for-it.sh namenode.hadoop-network:8020 -t 0
+     +root      4429     0  0 10:10 pts/0    00:00:00 /bin/bash
+     +root     15446    24  0 11:22 ?        00:00:00 sleep 1
+     +root     15477     0  0 11:22 ?        00:00:00 ps -eaf
+[0m
+[38;5;41m     ✔  stderr should eq ""[0m
+[38;5;41m     ✔  exit_status should eq 0[0m
+  Command: `hive --version`
+[38;5;41m     ✔  stdout should match "3.1.0.3.0.0.0-1634"[0m
+[38;5;9m     ×  stderr should eq ""
+     
+     expected: ""
+          got: "SLF4J: Class path contains multiple SLF4J bindings.\nSLF4J: Found binding in [jar:file:/usr/local/hi...r an explanation.\nSLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]\n"
+     
+     (compared using ==)
+     
+     Diff:
+     @@ -1 +1,6 @@
+     +SLF4J: Class path contains multiple SLF4J bindings.
+     +SLF4J: Found binding in [jar:file:/usr/local/hive/lib/log4j-slf4j-impl-2.10.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+     +SLF4J: Found binding in [jar:file:/usr/local/hadoop/share/hadoop/common/lib/slf4j-log4j12-1.7.25.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+     +SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+     +SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
+[0m
+[38;5;41m     ✔  exit_status should eq 0[0m
+  Command: `kinit -kt /usr/local/hive/conf/hive.keytab hive/$(hostname -f)`
+[38;5;41m     ✔  stderr should eq ""[0m
+[38;5;41m     ✔  exit_status should eq 0[0m
+
+Test Summary: [38;5;41m20 successful[0m, [38;5;9m3 failures[0m, 0 skipped
+[2018-09-04T11:22:22+00:00] WARN: Cannot find a UUID for your node.
+
+Profile: tests from hdfs-test-script.rb (tests from hdfs-test-script.rb)
+Version: (not specified)
+Target:  docker://aa36ac47e8e894f058e1c6491c8f2260f11702a1e735071191f35e37dfc400e2
+
+  Command: `klist`
+[38;5;41m     ✔  stderr should eq ""[0m
+[38;5;41m     ✔  exit_status should eq 0[0m
+  Command: `hdfs dfsadmin -report`
+[38;5;9m     ×  stderr should eq ""
+     
+     expected: ""
+          got: "report: Incomplete HDFS URI, no host: hdfs://namenode_hostname:8020\n"
+     
+     (compared using ==)
+     
+     Diff:
+     @@ -1 +1,2 @@
+     +report: Incomplete HDFS URI, no host: hdfs://namenode_hostname:8020
+[0m
+[38;5;9m     ×  exit_status should eq 0
+     
+     expected: 0
+          got: 255
+     
+     (compared using ==)
+[0m
+  Command: `hdfs dfs -ls /`
+[38;5;9m     ×  stdout should match "tmp*"
+     expected "" to match "tmp*"[0m
+[38;5;9m     ×  stdout should match "usr*"
+     expected "" to match "usr*"[0m
+[38;5;9m     ×  stderr should eq ""
+     
+     expected: ""
+          got: "ls: Incomplete HDFS URI, no host: hdfs://namenode_hostname:8020\n"
+     
+     (compared using ==)
+     
+     Diff:
+     @@ -1 +1,2 @@
+     +ls: Incomplete HDFS URI, no host: hdfs://namenode_hostname:8020
+[0m
+[38;5;9m     ×  exit_status should eq 0
+     
+     expected: 0
+          got: 1
+     
+     (compared using ==)
+[0m
+  Command: `kdestroy`
+[38;5;41m     ✔  stderr should eq ""[0m
+[38;5;41m     ✔  exit_status should eq 0[0m
+
+Test Summary: [38;5;41m4 successful[0m, [38;5;9m6 failures[0m, 0 skipped

@@ -1,0 +1,68 @@
+version: "3"
+
+services:
+  kdc:
+    image: docker-kerberos
+    container_name: $KERBEROS_HOST
+    hostname: $KERBEROS_HOST
+    env_file: .env
+    networks:
+      - $NETWORK_NAME
+
+  namenode:
+    image: dtr.paxatadev.com/hortonworks/namenode:3.0.0-kerberos-8-hdp
+    container_name: $NAMENODE_CONTAINER_NAME
+    hostname: $NAMENODE_HOST
+    env_file: .env
+    networks:
+      - $NETWORK_NAME
+    ports:
+      - "9870:9870"
+
+  resourcemanager:
+    image: dtr.paxatadev.com/hortonworks/resourcemanager:3.0.0-kerberos-8-hdp
+    container_name: $RESOURCEMANAGER_CONTAINER_NAME
+    hostname: $RESOURCEMANAGER_HOST
+    env_file: .env
+    networks:
+      - $NETWORK_NAME
+    ports:
+      - "8088:8088"
+
+  datanode-nodemanager:
+    image: dtr.paxatadev.com/hortonworks/datanode-nodemanager:3.0.0-kerberos-8-hdp
+    container_name: $DATANODE_CONTAINER_NAME
+    hostname: $DATANODE_CONTAINER_NAME.$NETWORK_NAME
+    env_file: .env
+    networks:
+      - $NETWORK_NAME
+
+#  pipeline:
+#    image: dtr.paxatadev.com/hortonworks/pipeline:3.0.0-spark-2.2.0-kerberos-8-hdp
+#    container_name: $PIPELINE_CONTAINER_NAME
+#    hostname: $PIPELINE_CONTAINER_NAME.$NETWORK_NAME
+#    env_file: .env
+#    networks:
+#      - $NETWORK_NAME
+#    ports:
+#      - "8090:8090"
+
+  postgres:
+    image: postgres:9
+    container_name: $DB_CONTAINER_NAME
+    hostname: $DB_HOST
+    env_file: .env  
+    networks:
+      - $NETWORK_NAME
+
+  hive:
+    image: dtr.paxatadev.com/hortonworks/hive:3.0.0-kerberos-8-hdp
+    container_name: $HIVE_CONTAINER_NAME
+    hostname: $HIVE_CONTAINER_NAME.$NETWORK_NAME
+    env_file: .env
+    networks:
+      - $NETWORK_NAME
+
+networks:
+  hadoop-network:
+    external: true
